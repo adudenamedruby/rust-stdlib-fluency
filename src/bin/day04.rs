@@ -13,6 +13,7 @@
 //     - `dedup_sorted(numbers: &mut Vec<i32>)`
 //     - `window_sums(numbers: &[i32], window: usize) -> Vec<i32>`
 //   - Use `sort`, `windows`, `chunks`, `split_at`, and indexing safely.
+//   - Decisions to make: for even-length `median`, do you average the two middles or pick one? For `window_sums`, what should happen when `window` is `0` or larger than the slice (panic, empty `Vec`, `Option`)?
 // - [ ] Done when:
 //   - You can explain why function parameters should often be `&[T]` instead of `&Vec<T>`.
 

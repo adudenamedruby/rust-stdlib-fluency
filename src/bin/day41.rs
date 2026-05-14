@@ -13,6 +13,7 @@
 //     - `serde_json` for JSON output,
 //     - `thiserror` for parser/library errors,
 //     - `anyhow` in `main`.
+//   - Continuity: this is the integration point for Week 2's log parsing (Day 13), Week 4's path/IO habits (Day 27), and the Week 6 crates. Lean on the testable cores you already built — do not start from scratch.
 // - [ ] Done when:
 //   - Both text and JSON output work.
 //   - Bad input gives clear errors.

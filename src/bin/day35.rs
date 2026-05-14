@@ -5,6 +5,7 @@
 //   - Write a short note: "My Rust error-handling rules of thumb".
 //   - Refactor one older exercise to remove `unwrap`.
 //   - Add context to app-level errors.
+//   - Update your Personal Rules of Thumb at the top of this plan — especially `thiserror` vs `anyhow`, and `Result<T, E>` vs `Option<T>`.
 // - [ ] Reflection prompts:
 //   - Where do typed errors matter?
 //   - Where is `anyhow` enough?

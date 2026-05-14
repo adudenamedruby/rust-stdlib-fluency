@@ -10,6 +10,7 @@
 //   - Upgrade `grep_lite` to support regex search.
 //   - Extract named captures from log lines.
 //   - Handle invalid regex patterns gracefully.
+//   - Decisions to make: name your captures after the log fields you defined in Week 2 (date, level, user, action) so the parsing pipeline composes cleanly later.
 // - [ ] Done when:
 //   - You can compile a `Regex` once and reuse it.
 

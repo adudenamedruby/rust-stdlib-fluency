@@ -16,6 +16,7 @@
 //     - `count_chars_words_bytes(s: &str) -> (usize, usize, usize)`
 //     - `first_n_chars(s: &str, n: usize) -> String`
 //   - Try slicing a string at a non-character boundary and observe what happens.
+//   - Decisions to make: define what "normalize" means for whitespace — collapse internal runs? trim ends? both? — and stay consistent in your tests. For `count_chars_words_bytes`, name how you're counting "words" (whitespace split is fine — just commit to it). For `first_n_chars`, decide what happens when `n` exceeds the string's length.
 // - [ ] Done when:
 //   - You can explain the difference between bytes, chars, and grapheme clusters at a high level.
 //   - You stop assuming string indexing works like JavaScript/Python.

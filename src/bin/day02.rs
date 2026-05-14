@@ -11,6 +11,7 @@
 //   - Write `parse_port(input: &str) -> Result<u16, String>`.
 //   - Write `first_non_empty_line(input: &str) -> Option<&str>`.
 //   - Rewrite both without `match`, using combinators like `map`, `and_then`, `ok_or_else`, and `filter`.
+//   - Decisions to make: what does "empty" mean for `first_non_empty_line` — only `""`, or also whitespace-only lines? Should `parse_port` tolerate surrounding whitespace, and what should port `0` do?
 // - [ ] Done when:
 //   - You can explain when you prefer `match` versus combinators.
 //   - You understand why `Option<&str>` is often better than returning an owned `String`.

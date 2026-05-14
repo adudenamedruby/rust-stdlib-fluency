@@ -11,6 +11,7 @@
 //   - Write `fn change_extension(path: &Path, ext: &str) -> PathBuf`.
 //   - Walk through a directory and collect files by extension.
 //   - Avoid converting paths to strings unless printing.
+//   - Decisions to make: for `change_extension`, what happens when the path has no extension yet, when the new extension is empty, or when it already starts with `.`?
 // - [ ] Done when:
 //   - You stop representing paths as `String` in function signatures.
 

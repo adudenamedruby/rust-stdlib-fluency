@@ -11,8 +11,10 @@
 //     - bytes,
 //     - chars,
 //     - top 5 longest lines.
+//   - Decisions to make: rank "longest" by what (bytes? chars? graphemes?), and what counts as a "word"? Make the choice once and let the tests show it.
 //   - No external crates.
 //   - Add tests for at least 5 edge cases.
+//   - Continuity: Day 48 (`parallel_stats`) will reuse line/word/byte counting across multiple files. Factor the counting logic so it works on a `&str`, not on a file.
 // - [ ] Done when:
 //   - The implementation uses borrowed `&str` internally where practical.
 //   - You have tests for empty input, whitespace-only input, Unicode input, single-line input, and repeated words.

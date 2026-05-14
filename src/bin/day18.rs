@@ -9,6 +9,7 @@
 // - [ ] Exercise:
 //   - Goal: The point is to practice passing logic into standard-library algorithms. Returning a closure with `impl Fn` also introduces how Rust represents behavior in types.
 //   - Sort a list of records by multiple fields.
+//   - Pick any small record shape (e.g., name + score + date) — the lesson is closure mechanics and sort variants, not the data.
 //   - Use closures that borrow external state.
 //   - Try to return a closure from a function using `impl Fn`.
 // - [ ] Done when:

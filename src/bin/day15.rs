@@ -4,6 +4,7 @@
 //
 // ## Day 15 - Iterator adapters and consumers
 //
+// - [ ] Retrieval (5 min, before reading): rewrite the word-frequency counter from Day 8 from memory, using `entry`. The check is whether `entry` is becoming automatic.
 // - [ ] Focus: `map`, `filter`, `filter_map`, `fold`, `sum`, `count`, `collect`.
 //   - Detail: Iterator fluency is a core Rust skill, but clarity still wins. This focus is about learning the common adapters and consumers while keeping the ability to drop back to a loop when that reads better.
 // - [ ] Read/inspect:

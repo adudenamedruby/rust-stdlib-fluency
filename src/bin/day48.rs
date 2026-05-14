@@ -9,6 +9,7 @@
 //   - Compute line/word/byte counts per file in parallel with std threads.
 //   - Send results back over channels.
 //   - Print a combined summary.
+//   - Continuity: this reuses Day 6's line/word/byte counting. If you factored it out as something like `fn count_stats(s: &str) -> Stats`, lifting it across threads is mostly an ownership exercise.
 // - [ ] Stretch:
 //   - Add a Tokio version only if the std-threaded version is working.
 // - [ ] Done when:

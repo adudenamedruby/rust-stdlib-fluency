@@ -12,6 +12,7 @@
 //     - one that mutates names in place,
 //     - one that consumes the vector and returns transformed names.
 //   - Use `iter`, `iter_mut`, and `into_iter` deliberately.
+//   - The transformation itself does not matter — uppercase, append a suffix, reverse, anything. The point is which iterator method you reach for and what the function ends up taking and returning.
 // - [ ] Done when:
 //   - You can predict whether a loop/adaptor gives you `T`, `&T`, or `&mut T`.
 

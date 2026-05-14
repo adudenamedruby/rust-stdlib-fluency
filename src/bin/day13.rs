@@ -12,7 +12,9 @@
 //     - count by user,
 //     - count by day,
 //     - top 3 actions.
+//   - Decisions to make: what counts as a "malformed" line — missing fields, unparseable date, extra fields, unknown level? Decide before you write the parser so your errors stay typed and your tests stay meaningful.
 //   - No external crates yet.
+//   - Continuity: Day 38 will replace your manual line parsing here with `regex` named captures, and Day 41 (`reporter`) wraps the whole thing with `clap` + JSON output. Keep parsing and summarizing in separate functions so they can be swapped.
 // - [ ] Done when:
 //   - Uses at least 3 collection types.
 //   - Has tests for malformed lines.

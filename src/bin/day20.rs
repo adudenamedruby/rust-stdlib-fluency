@@ -8,6 +8,7 @@
 //   - Keep it intentionally limited: no quoted commas required.
 //   - Return structured records and useful errors.
 //   - Produce summary stats using iterator chains.
+//   - Decisions to make: does your parser handle headers? Coerce numeric fields? Tolerate missing trailing values? Pick a small scope and put tests at its edges.
 // - [ ] Done when:
 //   - You have both loop-based and iterator-based versions of one processing step.
 //   - Tests cover empty rows, missing columns, and invalid numeric fields.

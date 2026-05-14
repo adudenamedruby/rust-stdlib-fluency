@@ -12,6 +12,7 @@
 //     - users in sorted order,
 //     - count by day in sorted order.
 //   - Use both hash-based and tree-based collections.
+//   - Decisions to make: invent a simple line shape yourself (e.g., `2026-04-01 user=alice`). The lesson is collection choice, not parsing fidelity.
 // - [ ] Done when:
 //   - You can explain when deterministic ordering is worth choosing `BTreeMap`/`BTreeSet`.
 

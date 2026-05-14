@@ -51,6 +51,20 @@ You can use one Cargo package with multiple binaries under `src/bin/`, or a Carg
 
 ---
 
+## If You Fall Behind
+
+Life will get in the way. The plan is designed to survive that.
+
+- **Miss a day or two:** pick up where you left off — do Day N next, do not try to double up. The dates are not load-bearing.
+- **Miss a week:** use the next weekly review checkpoint as a recovery point rather than skipping ahead. Review is light enough to absorb a backlog day at the same time.
+- **A day is running 90+ minutes:** stop. Commit whatever you have, mark the exercise as partial in your notes, and move on. Grinding past fatigue gives you frustration, not fluency.
+- **A whole concept did not click:** finish the week as planned, then add a "revisit Day N" item to your weekly notes. Most concepts get a second pass naturally in a later week.
+- **You are burned out:** take a day off and write a short note about why in your week file. Coming back to a plan you trust will adapt is easier than coming back to one that already feels like failure.
+
+The point is fluency, not completion. A 60-day plan that takes 80 days but is internalized is better than a 60-day plan rushed through in 60.
+
+---
+
 ## Core Resources
 
 Use these repeatedly during the plan.
@@ -75,6 +89,25 @@ Crate references:
 
 ---
 
+## Cargo Quick Reference
+
+You will run these constantly. They are not in `std` but they shape how you live in a Rust project.
+
+- `cargo new <name>` — start a new package.
+- `cargo init` — turn the current directory into a Cargo package.
+- `cargo run --bin dayNN` — run a specific binary under `src/bin/`. With the suggested layout above, this is how you actually execute each day's code.
+- `cargo check` — type-check and borrow-check without producing a binary. Much faster than `cargo build`; reach for this most of the time.
+- `cargo build` — compile a debug binary. Add `--release` for an optimized one.
+- `cargo test` — run unit, integration, and doc tests. Add `--bin dayNN` to scope to one binary.
+- `cargo add <crate>` — append a dependency to `Cargo.toml` (e.g., `cargo add serde --features derive`). Available in `cargo` 1.62+.
+- `cargo fmt` — apply rustfmt formatting. Run it before commits.
+- `cargo clippy` — run extra lints. Treat its suggestions as advice, not law.
+- `cargo doc --open` — generate docs for your crate and its dependencies, and open them locally.
+
+`cargo check` is your default feedback loop. Save `build`/`test`/`clippy` for when you need their specific output.
+
+---
+
 ## What You Are Trying to Internalize
 
 By the end, you should have a practical mental index for:
@@ -91,6 +124,29 @@ By the end, you should have a practical mental index for:
 - Concurrency basics: `thread`, `mpsc`, `Arc`, `Mutex`, `RwLock`, `OnceLock`, atomics
 - Async basics: what `std` does not provide, and how `tokio` fills the runtime gap
 - API design: `From`, `TryFrom`, `AsRef`, `Borrow`, `Default`, builder-like patterns, module visibility
+
+---
+
+## Personal Rules of Thumb to Develop
+
+Fill these in as you learn. Treat this as a living artifact you update each weekly review, not a final-day chore.
+
+- Use `&str` when:
+- Use `String` when:
+- Use `&[T]` when:
+- Use `Vec<T>` when:
+- Use `HashMap` when:
+- Use `BTreeMap` when:
+- Use `Result<T, E>` when:
+- Use `Option<T>` when:
+- Use `thiserror` when:
+- Use `anyhow` when:
+- Use `clap` when:
+- Use `serde` when:
+- Use `regex` when:
+- Use `itertools` when:
+- Use threads when:
+- Use Tokio when:
 
 ---
 
@@ -130,6 +186,7 @@ Objective: stop treating the standard library as a mystery. Learn how to navigat
   - Write `parse_port(input: &str) -> Result<u16, String>`.
   - Write `first_non_empty_line(input: &str) -> Option<&str>`.
   - Rewrite both without `match`, using combinators like `map`, `and_then`, `ok_or_else`, and `filter`.
+  - Decisions to make: what does "empty" mean for `first_non_empty_line` — only `""`, or also whitespace-only lines? Should `parse_port` tolerate surrounding whitespace, and what should port `0` do?
 - [ ] Done when:
   - You can explain when you prefer `match` versus combinators.
   - You understand why `Option<&str>` is often better than returning an owned `String`.
@@ -152,6 +209,7 @@ roux
     - `count_chars_words_bytes(s: &str) -> (usize, usize, usize)`
     - `first_n_chars(s: &str, n: usize) -> String`
   - Try slicing a string at a non-character boundary and observe what happens.
+  - Decisions to make: define what "normalize" means for whitespace — collapse internal runs? trim ends? both? — and stay consistent in your tests. For `count_chars_words_bytes`, name how you're counting "words" (whitespace split is fine — just commit to it). For `first_n_chars`, decide what happens when `n` exceeds the string's length.
 - [ ] Done when:
   - You can explain the difference between bytes, chars, and grapheme clusters at a high level.
   - You stop assuming string indexing works like JavaScript/Python.
@@ -171,6 +229,7 @@ roux
     - `dedup_sorted(numbers: &mut Vec<i32>)`
     - `window_sums(numbers: &[i32], window: usize) -> Vec<i32>`
   - Use `sort`, `windows`, `chunks`, `split_at`, and indexing safely.
+  - Decisions to make: for even-length `median`, do you average the two middles or pick one? For `window_sums`, what should happen when `window` is `0` or larger than the slice (panic, empty `Vec`, `Option`)?
 - [ ] Done when:
   - You can explain why function parameters should often be `&[T]` instead of `&Vec<T>`.
 
@@ -188,6 +247,7 @@ roux
     - one that mutates names in place,
     - one that consumes the vector and returns transformed names.
   - Use `iter`, `iter_mut`, and `into_iter` deliberately.
+  - The transformation itself does not matter — uppercase, append a suffix, reverse, anything. The point is which iterator method you reach for and what the function ends up taking and returning.
 - [ ] Done when:
   - You can predict whether a loop/adaptor gives you `T`, `&T`, or `&mut T`.
 
@@ -204,8 +264,10 @@ roux
     - bytes,
     - chars,
     - top 5 longest lines.
+  - Decisions to make: rank "longest" by what (bytes? chars? graphemes?), and what counts as a "word"? Make the choice once and let the tests show it.
   - No external crates.
   - Add tests for at least 5 edge cases.
+  - Continuity: Day 48 (`parallel_stats`) will reuse line/word/byte counting across multiple files. Factor the counting logic so it works on a `&str`, not on a file.
 - [ ] Done when:
   - The implementation uses borrowed `&str` internally where practical.
   - You have tests for empty input, whitespace-only input, Unicode input, single-line input, and repeated words.
@@ -217,6 +279,7 @@ roux
   - Rewrite one Day 2 or Day 3 function from scratch without looking.
   - Read your own code and mark any unnecessary cloning.
   - Run `cargo clippy` and address useful warnings.
+  - Update your Personal Rules of Thumb at the top of this plan if any new ones crystallized this week (especially `&str` vs `String`, `&[T]` vs `Vec<T>`).
 - [ ] Reflection prompts:
   - Which APIs did you reach for repeatedly?
   - Where did borrowing still feel awkward?
@@ -230,6 +293,7 @@ Objective: learn the everyday collections and the tradeoffs between them. This w
 
 ## Day 8 - `HashMap` and the entry API
 
+- [ ] Retrieval (5 min, before reading): rewrite `normalize_whitespace` from Day 3 (or `parse_port` from Day 2 — whichever you remember less well) from memory. Compare to your old version and note any APIs you had to look up.
 - [ ] Focus: maps, counts, updates.
   - Detail: Maps are central to summarizing, indexing, and counting. The `entry` API is especially important because it gives you a Rust-native way to update a value without doing multiple lookups.
 - [ ] Read/inspect:
@@ -242,6 +306,7 @@ Objective: learn the everyday collections and the tradeoffs between them. This w
     - once with `get_mut`/`insert`,
     - once with `entry(...).or_insert(...)`.
   - Sort output by count descending, then word ascending.
+  - Decisions to make: what is a "word" (whitespace split? alphanumeric runs?), and is counting case-sensitive? Commit to a definition before you write the counter.
 - [ ] Done when:
   - You understand why `entry` is a central Rust collection idiom.
 
@@ -259,6 +324,7 @@ Objective: learn the everyday collections and the tradeoffs between them. This w
     - users in sorted order,
     - count by day in sorted order.
   - Use both hash-based and tree-based collections.
+  - Decisions to make: invent a simple line shape yourself (e.g., `2026-04-01 user=alice`). The lesson is collection choice, not parsing fidelity.
 - [ ] Done when:
   - You can explain when deterministic ordering is worth choosing `BTreeMap`/`BTreeSet`.
 
@@ -274,6 +340,7 @@ Objective: learn the everyday collections and the tradeoffs between them. This w
   - Goal: The point is to model data that changes at the ends or needs priority access. Comparing heap versus sorting helps you decide when specialized data structures are worth the extra concept.
   - Implement a fixed-size recent-events buffer using `VecDeque`.
   - Implement top-N largest numbers using `BinaryHeap` or sorting; compare the approaches.
+  - Decisions to make: when the recent-events buffer is full, do you push out the oldest event or reject the new one? That choice is exactly what `VecDeque` makes ergonomic or awkward.
 - [ ] Done when:
   - You know where to reach for queue-like behavior without abusing `Vec`.
 
@@ -324,7 +391,9 @@ Objective: learn the everyday collections and the tradeoffs between them. This w
     - count by user,
     - count by day,
     - top 3 actions.
+  - Decisions to make: what counts as a "malformed" line — missing fields, unparseable date, extra fields, unknown level? Decide before you write the parser so your errors stay typed and your tests stay meaningful.
   - No external crates yet.
+  - Continuity: Day 38 will replace your manual line parsing here with `regex` named captures, and Day 41 (`reporter`) wraps the whole thing with `clap` + JSON output. Keep parsing and summarizing in separate functions so they can be swapped.
 - [ ] Done when:
   - Uses at least 3 collection types.
   - Has tests for malformed lines.
@@ -337,6 +406,7 @@ Objective: learn the everyday collections and the tradeoffs between them. This w
   - Refactor Day 13 to reduce cloning.
   - Replace one `Vec` with a more appropriate collection.
   - Write a short note: "When I choose each collection".
+  - Update your Personal Rules of Thumb at the top of this plan — especially the `HashMap` vs `BTreeMap` lines.
 - [ ] Reflection prompts:
   - Which collection API felt most Rust-specific?
   - Did `entry` click?
@@ -350,6 +420,7 @@ Objective: become comfortable reading and writing iterator-heavy Rust without tu
 
 ## Day 15 - Iterator adapters and consumers
 
+- [ ] Retrieval (5 min, before reading): rewrite the word-frequency counter from Day 8 from memory, using `entry`. The check is whether `entry` is becoming automatic.
 - [ ] Focus: `map`, `filter`, `filter_map`, `fold`, `sum`, `count`, `collect`.
   - Detail: Iterator fluency is a core Rust skill, but clarity still wins. This focus is about learning the common adapters and consumers while keeping the ability to drop back to a loop when that reads better.
 - [ ] Read/inspect:
@@ -408,6 +479,7 @@ Objective: become comfortable reading and writing iterator-heavy Rust without tu
 - [ ] Exercise:
   - Goal: The point is to practice passing logic into standard-library algorithms. Returning a closure with `impl Fn` also introduces how Rust represents behavior in types.
   - Sort a list of records by multiple fields.
+  - Pick any small record shape (e.g., name + score + date) — the lesson is closure mechanics and sort variants, not the data.
   - Use closures that borrow external state.
   - Try to return a closure from a function using `impl Fn`.
 - [ ] Done when:
@@ -437,6 +509,7 @@ Objective: become comfortable reading and writing iterator-heavy Rust without tu
   - Keep it intentionally limited: no quoted commas required.
   - Return structured records and useful errors.
   - Produce summary stats using iterator chains.
+  - Decisions to make: does your parser handle headers? Coerce numeric fields? Tolerate missing trailing values? Pick a small scope and put tests at its edges.
 - [ ] Done when:
   - You have both loop-based and iterator-based versions of one processing step.
   - Tests cover empty rows, missing columns, and invalid numeric fields.
@@ -447,6 +520,7 @@ Objective: become comfortable reading and writing iterator-heavy Rust without tu
   - Goal: The point is to compare standard iterator fluency with a popular extension crate. You should only keep the `itertools` version when it makes the code easier to understand or maintain.
   - Read `itertools` docs for 15 minutes, especially `Itertools` trait methods.
   - Refactor one Week 3 exercise using `itertools` only if it genuinely simplifies the code.
+  - Update your Personal Rules of Thumb at the top of this plan — especially `itertools` and any iterator-related entries.
 - [ ] Reflection prompts:
   - Which iterator chains improved clarity?
   - Which ones became too clever?
@@ -460,6 +534,7 @@ Objective: get comfortable writing practical Rust utilities that touch the opera
 
 ## Day 22 - `std::fs` and file metadata
 
+- [ ] Retrieval (5 min, before reading): pick one iterator chain from Week 3 (e.g., parsing a list of strings into numbers and collecting valid ones while ignoring failures) and rewrite it from memory.
 - [ ] Focus: filesystem operations.
   - Detail: Many useful command-line tools begin with filesystem inspection. This focus is about learning the standard ways Rust represents files, directories, and metadata.
 - [ ] Read/inspect:
@@ -503,6 +578,7 @@ Objective: get comfortable writing practical Rust utilities that touch the opera
   - Write `fn change_extension(path: &Path, ext: &str) -> PathBuf`.
   - Walk through a directory and collect files by extension.
   - Avoid converting paths to strings unless printing.
+  - Decisions to make: for `change_extension`, what happens when the path has no extension yet, when the new extension is empty, or when it already starts with `.`?
 - [ ] Done when:
   - You stop representing paths as `String` in function signatures.
 
@@ -548,7 +624,9 @@ Objective: get comfortable writing practical Rust utilities that touch the opera
   - Inputs: search term and file path.
   - Output matching lines with line numbers.
   - Add optional case-insensitive mode.
+  - Decisions to make: pick a stable output format (e.g., `path:line:text`) and stick to it. Lines are conventionally 1-indexed in grep-style tools.
   - No `regex` yet.
+  - Continuity: Day 37 replaces your manual arg parsing here with `clap`, and Day 38 replaces substring search with `regex`. Keep the search function pure (signature like `fn search(pattern, text) -> impl Iterator<Item = Match>`) so the matcher can be swapped without touching IO.
 - [ ] Done when:
   - Handles missing args, missing files, invalid UTF-8-ish situations as gracefully as you can at this stage.
   - Has tests for the search logic independent of file IO.
@@ -560,6 +638,7 @@ Objective: get comfortable writing practical Rust utilities that touch the opera
   - Refactor Day 27 into pure logic plus IO shell.
   - Change function signatures to accept `impl AsRef<Path>` where useful.
   - Run `cargo clippy`.
+  - Update your Personal Rules of Thumb at the top of this plan — especially around paths, IO, and when to use `impl AsRef<Path>` in your signatures.
 - [ ] Reflection prompts:
   - Where should your code own a `PathBuf`?
   - Where should it borrow a `&Path`?
@@ -573,6 +652,7 @@ Objective: learn Rust's error stack from `std` first, then add the common applic
 
 ## Day 29 - `std::error::Error` and `Box<dyn Error>`
 
+- [ ] Retrieval (5 min, before reading): rewrite `change_extension(path: &Path, ext: &str) -> PathBuf` from Day 24 from memory. The check is recall of `Path`/`PathBuf` methods and the borrowed/owned distinction.
 - [ ] Focus: standard error trait.
   - Detail: Rust's standard error trait is the foundation underneath both standard and ecosystem error handling. This day teaches the tradeoff between convenient erased errors and more precise typed errors.
 - [ ] Read/inspect:
@@ -659,6 +739,8 @@ Objective: learn Rust's error stack from `std` first, then add the common applic
   - Use `thiserror` for typed library errors.
   - Use `anyhow` in the binary.
   - Test malformed configs.
+  - Decisions to make: list which malformations you actually want to catch (duplicate keys? unknown keys? missing required values? non-numeric port?) before you write the parser, so each variant of your error type has a real reason to exist.
+  - Continuity: Day 37 (`clap`) may add CLI flags around this loader, but the parser itself stays the same. Keep `Config` and the file-reading logic separable.
 - [ ] Done when:
   - Error messages are useful.
   - Tests can identify specific error variants.
@@ -670,6 +752,7 @@ Objective: learn Rust's error stack from `std` first, then add the common applic
   - Write a short note: "My Rust error-handling rules of thumb".
   - Refactor one older exercise to remove `unwrap`.
   - Add context to app-level errors.
+  - Update your Personal Rules of Thumb at the top of this plan — especially `thiserror` vs `anyhow`, and `Result<T, E>` vs `Option<T>`.
 - [ ] Reflection prompts:
   - Where do typed errors matter?
   - Where is `anyhow` enough?
@@ -683,6 +766,7 @@ Objective: learn a small set of crates that Rust developers commonly reach for, 
 
 ## Day 36 - `serde` basics
 
+- [ ] Retrieval (5 min, before reading): rewrite the manual `ConfigError` enum from Day 30 from memory — variants, `Display` impl, `Error` impl. The check is whether the standard error machinery has stuck before you let `thiserror` hide it.
 - [ ] Focus: serialization and deserialization.
   - Detail: Serde is the standard ecosystem answer for turning Rust data into external formats and back. The focus is on understanding derive-based serialization before worrying about advanced attributes.
 - [ ] Read/inspect:
@@ -724,6 +808,7 @@ Objective: learn a small set of crates that Rust developers commonly reach for, 
   - Upgrade `grep_lite` to support regex search.
   - Extract named captures from log lines.
   - Handle invalid regex patterns gracefully.
+  - Decisions to make: name your captures after the log fields you defined in Week 2 (date, level, user, action) so the parsing pipeline composes cleanly later.
 - [ ] Done when:
   - You can compile a `Regex` once and reuse it.
 
@@ -773,6 +858,7 @@ Objective: learn a small set of crates that Rust developers commonly reach for, 
     - `serde_json` for JSON output,
     - `thiserror` for parser/library errors,
     - `anyhow` in `main`.
+  - Continuity: this is the integration point for Week 2's log parsing (Day 13), Week 4's path/IO habits (Day 27), and the Week 6 crates. Lean on the testable cores you already built — do not start from scratch.
 - [ ] Done when:
   - Both text and JSON output work.
   - Bad input gives clear errors.
@@ -784,6 +870,7 @@ Objective: learn a small set of crates that Rust developers commonly reach for, 
   - Goal: The point is to form judgement about dependencies. Your table should help you decide when a crate earns its place versus when the standard library is enough.
   - Make a table in your notes: "std solution versus crate solution".
   - Identify which crates you would add by default and which you would wait to justify.
+  - Update your Personal Rules of Thumb at the top of this plan — especially `clap`, `serde`, `regex`, `itertools`.
 - [ ] Reflection prompts:
   - Which crate felt most immediately useful?
   - Which crate hid complexity you should still understand?
@@ -797,6 +884,7 @@ Objective: learn the standard concurrency primitives well enough to read and wri
 
 ## Day 43 - `std::thread`
 
+- [ ] Retrieval (5 min, before reading): rewrite a regex-based parser from Week 6 from memory — e.g., extracting named captures from a log line.
 - [ ] Focus: spawning and joining threads.
   - Detail: Threads are Rust's standard-library baseline for parallel execution. This focus is about ownership across thread boundaries and why spawned work usually needs owned or `'static` data.
 - [ ] Read/inspect:
@@ -883,6 +971,7 @@ Objective: learn the standard concurrency primitives well enough to read and wri
   - Compute line/word/byte counts per file in parallel with std threads.
   - Send results back over channels.
   - Print a combined summary.
+  - Continuity: this reuses Day 6's line/word/byte counting. If you factored it out as something like `fn count_stats(s: &str) -> Stats`, lifting it across threads is mostly an ownership exercise.
 - [ ] Stretch:
   - Add a Tokio version only if the std-threaded version is working.
 - [ ] Done when:
@@ -899,6 +988,7 @@ Objective: learn the standard concurrency primitives well enough to read and wri
     - shared state,
     - async tasks.
   - Refactor one threaded exercise to remove unnecessary shared state.
+  - Update your Personal Rules of Thumb at the top of this plan — especially when to use threads and when to reach for Tokio.
 - [ ] Reflection prompts:
   - Which model felt simplest?
   - Where did lifetimes become stricter?
@@ -912,6 +1002,7 @@ Objective: start writing Rust that feels like it belongs in the ecosystem: clear
 
 ## Day 50 - Smart pointers and ownership tools
 
+- [ ] Retrieval (5 min, before reading): spawn three threads that compute partial sums of a `Vec<i32>` and join them — Day 43, from memory. Note anything you had to look up about `move`, `JoinHandle`, or borrowing across threads.
 - [ ] Focus: `Box`, `Rc`, `Arc`, `Cow`.
   - Detail: Rust has several ownership helpers because different sharing problems have different constraints. This focus is about recognizing heap allocation, single-threaded sharing, multi-threaded sharing, and copy-on-write.
 - [ ] Read/inspect:
@@ -923,6 +1014,7 @@ Objective: start writing Rust that feels like it belongs in the ecosystem: clear
 - [ ] Exercise:
   - Goal: The point is to connect pointer types to specific ownership situations. The examples should make you cautious about reaching for shared ownership when borrowing or moving would be simpler.
   - Use `Box` for a recursive enum.
+  - Pick any small recursive shape — a tree, a linked list of names, an arithmetic expression — and let the compiler tell you when `Box` becomes mandatory.
   - Use `Rc` in a single-threaded shared ownership example.
   - Use `Cow<'_, str>` in a function that sometimes borrows and sometimes allocates.
 - [ ] Done when:
@@ -1024,6 +1116,7 @@ Objective: start writing Rust that feels like it belongs in the ecosystem: clear
   - Run `cargo test`, `cargo clippy`, and `cargo doc --open`.
   - Write a short README for the Day 55 project.
   - Note the top 20 std APIs you now recognize.
+  - Sweep your Personal Rules of Thumb at the top of this plan one more time — by now most lines should have a confident answer.
 - [ ] Reflection prompts:
   - Does your code expose borrowed or owned values appropriately?
   - Are error types at the right boundary?
@@ -1166,29 +1259,6 @@ Avoid:
 - complex parsers,
 - perfect architecture,
 - spending the whole session fighting setup.
-
----
-
-# Personal Rules of Thumb to Develop
-
-Fill these in as you learn.
-
-- Use `&str` when:
-- Use `String` when:
-- Use `&[T]` when:
-- Use `Vec<T>` when:
-- Use `HashMap` when:
-- Use `BTreeMap` when:
-- Use `Result<T, E>` when:
-- Use `Option<T>` when:
-- Use `thiserror` when:
-- Use `anyhow` when:
-- Use `clap` when:
-- Use `serde` when:
-- Use `regex` when:
-- Use `itertools` when:
-- Use threads when:
-- Use Tokio when:
 
 ---
 

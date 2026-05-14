@@ -10,6 +10,8 @@
 //   - Use `thiserror` for typed library errors.
 //   - Use `anyhow` in the binary.
 //   - Test malformed configs.
+//   - Decisions to make: list which malformations you actually want to catch (duplicate keys? unknown keys? missing required values? non-numeric port?) before you write the parser, so each variant of your error type has a real reason to exist.
+//   - Continuity: Day 37 (`clap`) may add CLI flags around this loader, but the parser itself stays the same. Keep `Config` and the file-reading logic separable.
 // - [ ] Done when:
 //   - Error messages are useful.
 //   - Tests can identify specific error variants.

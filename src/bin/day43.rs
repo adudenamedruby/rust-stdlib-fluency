@@ -4,6 +4,7 @@
 //
 // ## Day 43 - `std::thread`
 //
+// - [ ] Retrieval (5 min, before reading): rewrite a regex-based parser from Week 6 from memory — e.g., extracting named captures from a log line.
 // - [ ] Focus: spawning and joining threads.
 //   - Detail: Threads are Rust's standard-library baseline for parallel execution. This focus is about ownership across thread boundaries and why spawned work usually needs owned or `'static` data.
 // - [ ] Read/inspect:

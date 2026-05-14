@@ -10,6 +10,7 @@
 //   - Goal: The point is to model data that changes at the ends or needs priority access. Comparing heap versus sorting helps you decide when specialized data structures are worth the extra concept.
 //   - Implement a fixed-size recent-events buffer using `VecDeque`.
 //   - Implement top-N largest numbers using `BinaryHeap` or sorting; compare the approaches.
+//   - Decisions to make: when the recent-events buffer is full, do you push out the oldest event or reject the new one? That choice is exactly what `VecDeque` makes ergonomic or awkward.
 // - [ ] Done when:
 //   - You know where to reach for queue-like behavior without abusing `Vec`.
 

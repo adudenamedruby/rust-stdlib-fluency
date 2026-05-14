@@ -4,6 +4,7 @@
 //
 // ## Day 22 - `std::fs` and file metadata
 //
+// - [ ] Retrieval (5 min, before reading): pick one iterator chain from Week 3 (e.g., parsing a list of strings into numbers and collecting valid ones while ignoring failures) and rewrite it from memory.
 // - [ ] Focus: filesystem operations.
 //   - Detail: Many useful command-line tools begin with filesystem inspection. This focus is about learning the standard ways Rust represents files, directories, and metadata.
 // - [ ] Read/inspect:

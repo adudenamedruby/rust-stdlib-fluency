@@ -4,6 +4,7 @@
 //
 // ## Day 36 - `serde` basics
 //
+// - [ ] Retrieval (5 min, before reading): rewrite the manual `ConfigError` enum from Day 30 from memory — variants, `Display` impl, `Error` impl. The check is whether the standard error machinery has stuck before you let `thiserror` hide it.
 // - [ ] Focus: serialization and deserialization.
 //   - Detail: Serde is the standard ecosystem answer for turning Rust data into external formats and back. The focus is on understanding derive-based serialization before worrying about advanced attributes.
 // - [ ] Read/inspect:

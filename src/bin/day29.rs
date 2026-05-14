@@ -4,6 +4,7 @@
 //
 // ## Day 29 - `std::error::Error` and `Box<dyn Error>`
 //
+// - [ ] Retrieval (5 min, before reading): rewrite `change_extension(path: &Path, ext: &str) -> PathBuf` from Day 24 from memory. The check is recall of `Path`/`PathBuf` methods and the borrowed/owned distinction.
 // - [ ] Focus: standard error trait.
 //   - Detail: Rust's standard error trait is the foundation underneath both standard and ecosystem error handling. This day teaches the tradeoff between convenient erased errors and more precise typed errors.
 // - [ ] Read/inspect:

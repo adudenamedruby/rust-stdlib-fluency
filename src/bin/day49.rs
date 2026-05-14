@@ -8,6 +8,7 @@
 //     - shared state,
 //     - async tasks.
 //   - Refactor one threaded exercise to remove unnecessary shared state.
+//   - Update your Personal Rules of Thumb at the top of this plan — especially when to use threads and when to reach for Tokio.
 // - [ ] Reflection prompts:
 //   - Which model felt simplest?
 //   - Where did lifetimes become stricter?

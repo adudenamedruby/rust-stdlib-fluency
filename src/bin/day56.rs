@@ -5,6 +5,7 @@
 //   - Run `cargo test`, `cargo clippy`, and `cargo doc --open`.
 //   - Write a short README for the Day 55 project.
 //   - Note the top 20 std APIs you now recognize.
+//   - Sweep your Personal Rules of Thumb at the top of this plan one more time — by now most lines should have a confident answer.
 // - [ ] Reflection prompts:
 //   - Does your code expose borrowed or owned values appropriately?
 //   - Are error types at the right boundary?
