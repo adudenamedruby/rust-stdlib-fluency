@@ -1,3 +1,25 @@
+// ## Day 3 - `String`, `str`, slices, and UTF-8 reality
+//
+// roux
+//
+// - [ ] Focus: owned versus borrowed text.
+//   - Detail: Text in Rust forces you to separate ownership from borrowing and bytes from human-readable characters. This focus prevents a lot of early pain around indexing, slicing, and unnecessary allocation.
+// - [ ] Read/inspect:
+//   - What to look for: Look for the difference between `String` methods and `str` methods, and notice how many methods return iterators. Pay special attention to docs that mention UTF-8 boundaries.
+//   - `std::string::String`
+//   - primitive `str`
+// - [ ] Exercise:
+//   - Goal: The point is to write text APIs that borrow by default and allocate only when producing new text. The UTF-8 slicing experiment should make Rust's string design feel protective rather than arbitrary.
+//   - Write functions that accept `&str`, not `String`, wherever possible.
+//   - Implement:
+//     - `normalize_whitespace(s: &str) -> String`
+//     - `count_chars_words_bytes(s: &str) -> (usize, usize, usize)`
+//     - `first_n_chars(s: &str, n: usize) -> String`
+//   - Try slicing a string at a non-character boundary and observe what happens.
+// - [ ] Done when:
+//   - You can explain the difference between bytes, chars, and grapheme clusters at a high level.
+//   - You stop assuming string indexing works like JavaScript/Python.
+
 fn normalize_whitespace(s: &str) -> String {
     s.split_whitespace().collect::<Vec<&str>>().join(" ")
 }
