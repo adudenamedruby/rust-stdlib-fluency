@@ -17,4 +17,33 @@
 // - [ ] Done when:
 //   - You can explain why function parameters should often be `&[T]` instead of `&Vec<T>`.
 
-fn main() {}
+fn median(numbers: &mut [i32]) -> Option<f64> {
+    numbers.sort();
+    if numbers.len().is_multiple_of(2) {
+        let index = numbers.len() / 2;
+        Some(((numbers[index] + numbers[index - 1]) as f64) / 2.0)
+    } else {
+        Some(numbers[numbers.len() / 2] as f64)
+    }
+}
+
+fn main() {
+    _ = median(&mut [1, 2, 3]);
+}
+
+#[cfg(test)]
+mod day04_tests {
+    use super::*;
+
+    #[test]
+    fn median_get_middle_number() {
+        assert_eq!(Some(2.0), median(&mut [3, 1, 2]));
+        assert_eq!(Some(3.0), median(&mut [5, 4, 2, 3, 1]));
+    }
+
+    #[test]
+    fn median_get_two_middle_numbers() {
+        assert_eq!(Some(2.0), median(&mut [3, 2, 1, 2]));
+        assert_eq!(Some(2.5), median(&mut [3, 3, 5, 1, 2, 1]));
+    }
+}
